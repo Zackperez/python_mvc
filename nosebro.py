@@ -1,90 +1,108 @@
 import tkinter as tk
 import json
+import nlpcloud
+from tkinter import ttk
+
 
 class Model:
+
     def __init__(self):
-        self.n1 = tk.IntVar(0)
-        self.n2 = tk.IntVar(0)
+        self.texto_traducir = tk.StringVar()
 
-    def get_numero1(self):
-        return self.n1
+    def get_texto_traducir(self):
+        return self.texto_traducir
 
-    def set_numero1(self,n1):
-        self.n1 = n1
+    def set_texto_traducir(self, texto_traducir):
+        self.texto_traducir = texto_traducir
 
-    def get_numero2(self):
-        return self.n2
 
-    def set_numero2(self,n2):
-        self.n2 = n2
+class View(tk.Frame):
 
-class View (tk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
         self.parent = parent
 
-        self.lbln1=tk.Label(self.parent, text="Numero 1")
-        self.lbln1.grid( row=0,column=0)
-        self.txtn1=tk.Entry()
-        self.txtn1.grid(row=0,column=1)
+        self.opcion = tk.StringVar()
+        idiomas = ("Español", "Aleman", "Portugués", "Ruso", "Coreano","Japones")
+        self.combo_idiomas = ttk.Combobox(self.parent,width=10,textvariable=self.opcion,values=idiomas)
+        self.combo_idiomas.current(0)
+        self.combo_idiomas.grid(column=0, row=4)
 
-        self.lbln2=tk.Label(self.parent, text="Numero 2")
-        self.lbln2.grid( row=0,column=2)
-        self.txtn2=tk.Entry()
-        self.txtn2.grid(row=0,column=3)
 
-        self.btnguardar=tk.Button(text="Guardar")
-        self.btnguardar.grid(row=2,column=0)
+        self.txt_lbl()
+        self.botones_widget()
+        self.configurar_ventana()
 
-        self.btnmostrar=tk.Button(text="Mostrar")
-        self.btnmostrar.grid(row=2,column=1)
+    def txt_lbl(self):
+        
+        def on_entry_validate(S): return S.isalpha()
+        vcmd = (root.register(on_entry_validate),'%S')
 
-        self.lblres=tk.Label(self.parent, text="Resultado")
-        self.lblres.grid(row=3,column=0)
+        self.lblTextoTraducir = tk.Label(self.parent,text="texto a traducir: ").grid(row=0, column=0)
 
-        self.parent.geometry("500x300")
+        self.txtTraducir = tk.Entry(self.parent, validate="key", validatecommand=vcmd)
+        self.txtTraducir.grid(row=0,column=1,padx=10,pady=10,ipadx=10,ipady=30)
+
+        self.lblTextoTraducido = tk.Label(self.parent,text="texto traducido: ").grid(row=0, column=2)
+        self.lblTextoTraducido = tk.Label(self.parent, text="").grid(row=0, column=3)
+
+        self.lblres = tk.Label(self.parent, text="Resultado").grid(row=3, column=0)
+
+    def configurar_ventana(self):
+        self.parent.geometry("480x300")
         self.parent.resizable(0, 0)
+
+    def botones_widget(self):
+        self.btnguardar = tk.Button(text="Guardar")
+        self.btnguardar.grid(row=2, column=0)
+
+        self.btnmostrar = tk.Button(text="Mostrar")
+        self.btnmostrar.grid(row=2, column=1)
 
     def mostrar_resultado(self, message):
         self.lblres['text'] = message
 
+    def mostrar_error(self,message):
+        self.lblres['text'] = message
+
+    def campo_vacio (self, message):
+        self.lblres['text'] = message
+
 class Controller:
+
     def __init__(self, root):
         self.model = Model()
         self.view = View(root)
 
-        self.view.btnguardar.config(command=self.guardar_numero)
-        self.view.btnmostrar.config(command=self.suma)
+        self.view.btnguardar.config(command=self.guardar_texto)
+        self.view.btnmostrar.config(command=self.traducir_el_texto)
 
-    def guardar_numero(self):
+    def guardar_texto(self):
         try:
-            self.model.set_numero1(int(self.view.txtn1.get()))
-            self.model.set_numero2(int(self.view.txtn2.get()))
+            self.model.texto_traducir = self.view.txtTraducir.get()
+            a = self.view.combo_idiomas.get()
+            print(a)
         except:
             self.borrar_campos()
-            self.view.lblres['text'] = "Verifica que sean números"
+            xd = "Verifica que los campos no esten vacío"
+            print(xd)
+            self.view.campo_vacio(xd)
+
+    def mostrar_texto(self):
+        texto = self.model.get_texto_traducir()
+        self.view.lblTextoTraducido['text'] = "Texto traducido", texto
 
     def borrar_campos(self):
-        self.view.txtn1.delete(0, tk.END)
-        self.view.txtn2.delete(0, tk.END)
-
-    def muestra_numero(self):
-        n1 = self.model.get_numero1()
-        self.view.lblres['text'] = n1
-
-    def suma(self):
         try:
-            n1 = self.model.get_numero1()
-            n2 = self.model.get_numero2()
-            suma = n1 + n2
-            print(suma)
-            self.view.lblres['text'] = "La suma es",suma
-            texto_res = self.view.lblres.cget("text")
-            self.agregar_datos_generales_json(n1,n2,texto_res)
-        except Exception as e:
-            print("Ocurrió un error xd", e)
+            self.view.txtTraducir.delete(0, tk.END)
+        except Exception as a:
+            print(a)
 
-    def agregar_datos_generales_json(self, n1,n2,res):
+    def muestra_traduccion(self):
+        texto_traducido = self.model.get_texto_traducir()
+        self.view.lblres['text'] = texto_traducido
+
+    def agregar_datos_generales_json(self, n1, n2, res):
         informacion_json_final = []
 
         if self.existe_historial() == True:
@@ -95,21 +113,42 @@ class Controller:
 
             with open("historial.json", 'w') as archivo_json:
                 json.dump(datos, archivo_json, indent=3)
-                print("Se han añadido los siguientes datos al archivo " + archivo_json.name+"\n")
-        else:    
-            
-            informacion_usuario = {"numero1": n1, "numero2": n2, "resultado": res}
+                print("Se han añadido los siguientes datos al archivo " +archivo_json.name + "\n")
+        else:
+
+            informacion_usuario = {"numero1": n1,"numero2": n2,"resultado": res}
             with open("historial.json", 'w') as archivo_json:
                 informacion_json_final.append(informacion_usuario)
                 json.dump(informacion_json_final, archivo_json, indent=3)
-                print(archivo_json.name+" creado exitosamente")                      
+                print(archivo_json.name + " creado exitosamente")
 
     def existe_historial(self):
         try:
             with open('historial.json') as archivo:
                 return True
         except FileNotFoundError as e:
-            return False        
+            return False
+
+    def combo_seleccion(self):
+        if self.view.combo_idiomas.get() == "Español":
+            return "spa_Latn"
+        if self.view.combo_idiomas.get() == "Aleman":
+            return "deu_Latn"
+        if self.view.combo_idiomas.get() == "Portugués":
+            return "por_Latn"
+        if self.view.combo_idiomas.get() == "Ruso":
+            return "rus_Cyrl"
+        if self.view.combo_idiomas.get() == "Coreano":
+            return "kor_Hang"
+        if self.view.combo_idiomas.get() == "Japones":
+            return "jpn_Jpan"
+
+    def traducir_el_texto(self):
+        idioma = self.combo_seleccion()
+        client = nlpcloud.Client("nllb-200-3-3b","0c763b98f814c4649754c8c6e50425f99969aa72",gpu=False)
+        texto_traducido = client.translation(self.model.get_texto_traducir(),source="eng_Latn",target=idioma)
+        self.view.lblres['text'] = texto_traducido
+
 
 if __name__ == "__main__":
     root = tk.Tk()
