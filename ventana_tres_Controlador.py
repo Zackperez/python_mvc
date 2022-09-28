@@ -1,15 +1,15 @@
 from ventana_principal import *
-from ventana_principal_Modelo import *
-from ventana_principal_Vista import *
+from ventana_tres_Modelo import *
+from ventana_tres_Vista import *
 import json
 import tkinter as tk
 import nlpcloud
 
-class Ventana_Principal_Controller:
+class Ventana_Tres_Controller:
 
     def __init__(self, root):
-        self.model = Ventana_Principal_Model()
-        self.view = Ventana_Principal_View(root)
+        self.model = Ventana_Tres_Model()
+        self.view = Ventana_Tres_View(root)
         self.view.btnguardar.config(command=self.guardar_texto)
         self.view.btnmostrar.config(command=self.traducir_el_texto)
 

@@ -1,6 +1,6 @@
 from ventana_principal import *
 
-class Ventana_Principal_Model:
+class Ventana_Tres_Model:
 
     def __init__(self):
         self.texto_traducir = tk.StringVar()

@@ -2,7 +2,7 @@ from ventana_principal import *
 from tkinter import ttk
 import tkinter as tk
 
-class Ventana_Principal_View(tk.Frame):
+class Ventana_dos_View(tk.Frame):
 
     def __init__(self, parent):
         super().__init__(parent)
@@ -41,12 +41,3 @@ class Ventana_Principal_View(tk.Frame):
 
         self.btnmostrar = tk.Button(self.parent,text="Mostrar")
         self.btnmostrar.grid(row=2, column=1)
-
-    def mostrar_resultado(self, message):
-        self.lblres['text'] = message
-
-    def mostrar_error(self,message):
-        self.lblres['text'] = message
-
-    def campo_vacio (self, message):
-        self.lblres['text'] = message
