@@ -1,3 +1,90 @@
+
+import openai
+import json
+
+
+def existe_historial():
+    try:
+        with open('answer.json') as archivo:
+            return True
+    except FileNotFoundError as e:
+        return False
+
+def devolver_respuestas(humano_respuestas, ia_respuestas):
+    respuestas = {}
+    respuestas = {"Humano":humano_respuestas, "IA":ia_respuestas}
+    return respuestas
+    
+def crear_answer_json():
+
+    if existe_historial() == True:
+        nuevos_datos = devolver_respuestas(humano_respuestas, ia_respuestas)
+        with open("answer.json") as archivo_json:
+            datos = json.load(archivo_json)
+        datos.append(nuevos_datos)
+
+        with open("answer.json", 'w') as archivo_json:
+            json.dump(datos, archivo_json, indent=3)
+            print("Se han añadido los siguientes datos al archivo " + archivo_json.name+"\n")
+            print(datos)
+    else:
+        with open("answer.json", 'w') as archivo_json:
+            historial = []
+            historial.append(devolver_respuestas(humano_respuestas, ia_respuestas))
+            json.dump(historial, archivo_json, indent=3)
+            print(archivo_json.name+" creado exitosamente")
+            print("Se han añadido los siguientes datos al archivo " + archivo_json.name+"\n")
+            print(historial)
+
+
+openai.api_key =("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")
+conversation ="Fui creado por OpenAI. ¿Cómo te puedo ayudar hoy?"
+print(conversation)
+i = 1
+
+humano_respuestas = []
+ia_respuestas = []
+
+while (i !=0):
+    question = input("Human: ")
+    if question == "Adios":
+        respuestas = devolver_respuestas(humano_respuestas, ia_respuestas)
+        crear_answer_json()
+        print("AI: ¡Adiós!")
+        break
+    humano_respuestas.append(question)
+    conversation += "\nHuman:" + question + "\nAI:"
+    response = openai.Completion.create(
+        model="davinci",
+        prompt = conversation,
+        temperature=0.9,
+        max_tokens=150,
+        top_p=1,
+        frequency_penalty=0.0,
+        presence_penalty=0.6,
+        stop=["\n"," Human:", " AI:"]
+    )
+
+    answer = response.choices[0].text.strip()
+    ia_respuestas.append(response.choices[0].text)
+
+    conversation += answer
+    print("AI: "+ answer)
+
+
+
+    print("Lista respuesta humano: ",humano_respuestas)
+    print("Lista respuesta ia: ",ia_respuestas)
+
+
+
+
+"""  
+    root = tk.Tk()
+    app = Controller(root)
+    root.mainloop()
+import tkinter as tk
+
 import tkinter as tk
 import json
 import nlpcloud
@@ -154,33 +241,6 @@ class Controller:
 if __name__ == "__main__":
 
 
-    openai.api_key = os.getenv("OPENAI_API_KEY")
-    conversation ="The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today?\nHuman: I'd like to cancel my subscription.\nAI:"
-
-    i = 1
-    while (i !=0):
-        question = input("Human: ")
-        conversation += "\nHuman:" + question + "\nAI:"
-        response = openai.Completion.create(
-            model="davinci",
-            prompt = conversation,
-            temperature=0.9,
-            max_tokens=150,
-            top_p=1,
-            frequency_penalty=0.0,
-            presence_penalty=0.6,
-            stop=["\n"," Human:", " AI:"]
-        )
-
-        answer = response.choices[0].text.strip()
-        conversation += answer
-        print("AI: "+ answer)
-
-"""  
-    root = tk.Tk()
-    app = Controller(root)
-    root.mainloop()
-import tkinter as tk
 
 class Vista:
     def __init__(self):
