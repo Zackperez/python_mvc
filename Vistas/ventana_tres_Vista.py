@@ -1,43 +1,45 @@
+from turtle import width
 from ventana_principal import *
 from tkinter import ttk
 import tkinter as tk
+from tkinter import *
 
 class Ventana_Tres_View(tk.Frame):
 
     def __init__(self, parent):
         super().__init__(parent)
         self.parent = parent
-        self.opcion = tk.StringVar()
-        idiomas = ("Español", "Aleman", "Portugués", "Ruso", "Coreano","Japones")
-        self.combo_idiomas = ttk.Combobox(self.parent,width=10,textvariable=self.opcion,values=idiomas)
-        self.combo_idiomas.current(0)
-        self.combo_idiomas.grid(column=0, row=4)
-
         self.txt_lbl()
         self.botones_widget()
         self.configurar_ventana()
 
     def txt_lbl(self):
-        #def on_entry_validate(S): return S.isempty()
-        #vcmd = (root.register(on_entry_validate),'%S')
- 
-        self.lblTextoTraducir = tk.Label(self.parent,text="texto a traducir: ").grid(row=0, column=0)
-        #validatecommand=vcmd    
-        self.txtTraducir = tk.Entry(self.parent, validate="key")
-        self.txtTraducir.grid(row=0,column=1,padx=10,pady=10,ipadx=10,ipady=30)
 
-        self.lblTextoTraducido = tk.Label(self.parent,text="texto traducido: ").grid(row=0, column=2)
+        self.lblnombrev2=tk.Label(self.parent,text="CHATBOT con OpenAI",font=('Roboto', 20))
+        self.lblnombrev2.grid(row=0,column=0,padx=0,pady=5,ipadx=0,ipady=10)
 
-        self.lblres = tk.Label(self.parent, text="Resultado")
-        self.lblres.grid(row=3, column=0)
+        myscroll = Scrollbar(self.parent) 
+        self.mylist = Listbox(self.parent, yscrollcommand = myscroll.set)  
+        self.mylist.grid(row=1,column=0,padx=10,pady=0,ipadx=80,ipady=140)  
+
+        self.lblnombrev2=tk.Label(self.parent,text="Escribe acá",font=('Roboto', 10))
+        self.lblnombrev2.grid(row=2,column=0)
+
+        self.txtTexto = tk.Entry(self.parent)
+        self.txtTexto.grid(row=3,column=0,padx=10,pady=0,ipadx=80,ipady=0)
 
     def configurar_ventana(self):
-        self.parent.geometry("480x300")
+        wventana = 300
+        hventana = 600
+
+        wtotal = self.parent.winfo_screenwidth()
+        htotal = self.parent.winfo_screenheight()
+        pwidth = round(wtotal/2-wventana/2)
+        pheight = round(htotal/2-hventana/2)
+
+        self.parent.geometry(str(wventana)+"x"+str(hventana)+"+"+str(pwidth)+"+"+str(pheight))
         self.parent.resizable(0, 0)
 
     def botones_widget(self):
-        self.btnguardar = tk.Button(self.parent,text="Guardar")
-        self.btnguardar.grid(row=2, column=0)
-
-        self.btnmostrar = tk.Button(self.parent,text="Mostrar")
-        self.btnmostrar.grid(row=2, column=1)
+        self.btnenviar = tk.Button(self.parent,text="Enviar")
+        self.btnenviar.grid(row=4, column=0)

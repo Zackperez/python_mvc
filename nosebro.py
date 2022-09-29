@@ -1,7 +1,11 @@
 
+# -*- coding: utf-8 -*-
 import openai
 import json
 
+openai.api_key =("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")
+humano_respuestas = []
+ia_respuestas = []
 
 def existe_historial():
     try:
@@ -19,32 +23,27 @@ def crear_answer_json():
 
     if existe_historial() == True:
         nuevos_datos = devolver_respuestas(humano_respuestas, ia_respuestas)
-        with open("answer.json") as archivo_json:
+        with open("answer.json",encoding="utf-8") as archivo_json:
             datos = json.load(archivo_json)
         datos.append(nuevos_datos)
 
-        with open("answer.json", 'w') as archivo_json:
-            json.dump(datos, archivo_json, indent=3)
+        with open("answer.json", 'w',encoding="utf-8") as archivo_json:
+            json.dump(datos, archivo_json, indent=3, ensure_ascii=False)
             print("Se han añadido los siguientes datos al archivo " + archivo_json.name+"\n")
             print(datos)
     else:
-        with open("answer.json", 'w') as archivo_json:
+        with open("answer.json", 'w',encoding="utf-8") as archivo_json:
             historial = []
             historial.append(devolver_respuestas(humano_respuestas, ia_respuestas))
-            json.dump(historial, archivo_json, indent=3)
+            json.dump(historial, archivo_json, indent=3, ensure_ascii=False)
             print(archivo_json.name+" creado exitosamente")
             print("Se han añadido los siguientes datos al archivo " + archivo_json.name+"\n")
             print(historial)
 
-
-openai.api_key =("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")
 conversation ="Fui creado por OpenAI. ¿Cómo te puedo ayudar hoy?"
 print(conversation)
+
 i = 1
-
-humano_respuestas = []
-ia_respuestas = []
-
 while (i !=0):
     question = input("Human: ")
     if question == "Adios":
@@ -70,13 +69,6 @@ while (i !=0):
 
     conversation += answer
     print("AI: "+ answer)
-
-
-
-    print("Lista respuesta humano: ",humano_respuestas)
-    print("Lista respuesta ia: ",ia_respuestas)
-
-
 
 
 """  

@@ -8,7 +8,7 @@ class Aplicacion:
     def __init__(self):
         self.ventana_principal = tk.Tk()
         self.ventana_principal.title("Menu principal")
-        self.ventana_principal.geometry("600x400")
+        self.configurar_ventana()
         self.lblnombrev2=tk.Label(self.ventana_principal,text="Ventana")
         self.lblnombrev2.grid(row=0,column=0)
         self.menuppal = tk.Menu(self.ventana_principal)
@@ -32,3 +32,15 @@ class Aplicacion:
         root3 = tk.Tk()
         control_ventana_tres = Ventana_Tres_Controller(root3)
         root3.mainloop()
+
+    def configurar_ventana(self):
+        wventana = 1080
+        hventana = 600
+
+        wtotal = self.ventana_principal.winfo_screenwidth()
+        htotal = self.ventana_principal.winfo_screenheight()
+        pwidth = round(wtotal/2-wventana/2)
+        pheight = round(htotal/2-hventana/2)
+
+        self.ventana_principal.geometry(str(wventana)+"x"+str(hventana)+"+"+str(pwidth)+"+"+str(pheight))
+        self.ventana_principal.resizable(0, 0)
