@@ -1,7 +1,7 @@
 import tkinter as tk
-from ventana_principal_Controlador import *
-from ventana_dos_Controlador import *
-from ventana_tres_Controlador import *
+from Controladores.ventana_principal_Controlador import *
+from Controladores.ventana_dos_Controlador import *
+from Controladores.ventana_tres_Controlador import *
 from tkinter import *
 
 class Aplicacion:
