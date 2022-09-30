@@ -1,4 +1,39 @@
+import nlpcloud
 
+token = "0c763b98f814c4649754c8c6e50425f99969aa72"
+client = nlpcloud.Client("python-langdetect", token)
+# Returns a json object.
+
+def existe_lenguaje(idioma):
+    for indice in range(len(idioma)):
+        b = idioma[indice]
+        if b in lista_lenguajes:
+            print("idioma detectado: "+idioma)
+            b = ""
+        else:
+            print("El idioma no existe")    
+
+lang = client.langdetection("Hard to love")
+espanol = "es"
+lista_lenguajes = ["es", "de", "ru", "pt", "ko", "ja","en","sl"] #español,aleman,ruso,portugues,coreano,japones,inglés
+
+a = lang.get('languages')
+listapy = a[0]
+listafinal = listapy.items()
+idioma = list(listafinal)[0][0]
+existe_lenguaje(idioma)
+#for a in range(len(idioma)):
+#    print(a)
+print("Tamaño",len(idioma))
+
+"""  
+tamano = len(idioma)
+existe_lenguaje(idioma)
+print(lang)
+print(tamano)
+"""  
+
+"""  
 # -*- coding: utf-8 -*-
 import openai
 import json
@@ -71,7 +106,7 @@ while (i !=0):
     print("AI: "+ answer)
 
 
-"""  
+
     root = tk.Tk()
     app = Controller(root)
     root.mainloop()
