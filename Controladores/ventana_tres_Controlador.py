@@ -1,38 +1,39 @@
 from ventana_principal import *
 from Modelos.ventana_tres_Modelo import *
 from Vistas.ventana_tres_Vista import *
-import tkinter as tk
 import openai
-import json
 
 class Ventana_Tres_Controller:
 
     def __init__(self, root):
         self.model = Ventana_Tres_Model()
         self.view = Ventana_Tres_View(root)
-        self.view.btnenviar.config(command=self.chatBot)
 
-    def devolver_respuestas(humano_respuestas, ia_respuestas):
-        respuestas = {}
-        respuestas = {"Humano":humano_respuestas, "IA":ia_respuestas}
-        return respuestas
+        self.view.btnEnviar_texto_hacia_IA.config(command=self.chatBot)
+
+    def devolver_respuestas(humano_preguntas, ia_respuestas): #Usado para el JSON
+        conversacion = {}
+        conversacion = {"Humano":humano_preguntas, "IA":ia_respuestas}
+        return conversacion
 
     def chatBot(self):
         try:
-            openai.api_key =("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")
-            humano_respuestas = []
+            openai.api_key =("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")
+            humano_preguntas = []
             ia_respuestas = []
             conversation ="Fui creado por OpenAI. ¿Cómo te puedo ayudar hoy?"
             print(conversation)
-
-            question = self.view.txtTexto.get()
-            print(question)
-            self.view.mylist.insert(END,question)
-            if question == "Adios":
+            #self.view.historial_de_conversacion.insert(END,conversation)
+            pregunta_usuario = self.view.txtEntrada_texto_usuario.get()
+        
+            self.view.historial_de_conversacion.insert(END,"Humano: "+pregunta_usuario)
+            if pregunta_usuario == "Adios":
                 print("AI: ¡Adiós!")
-                
-            humano_respuestas.append(question)
-            conversation += "\nHuman:" + question + "\nAI:"
+                self.view.parent.destroy()
+
+            humano_preguntas.append(pregunta_usuario)
+            
+            conversation += "\nHuman:" + pregunta_usuario + "\nAI:"
             response = openai.Completion.create(
                 model="davinci",
                 prompt = conversation,
@@ -44,11 +45,12 @@ class Ventana_Tres_Controller:
                 stop=["\n"," Human:", " AI:"]
             )
 
-            answer = response.choices[0].text.strip()
+            respuesta_ia = response.choices[0].text.strip()
             ia_respuestas.append(response.choices[0].text)
 
-            conversation += answer
-            self.view.mylist.insert(END,answer)
-            question.delete("1.0","end")
+            conversation += respuesta_ia
+
+            self.view.historial_de_conversacion.insert(END,"IA: "+respuesta_ia)
+
         except Exception as e:
             print(e)

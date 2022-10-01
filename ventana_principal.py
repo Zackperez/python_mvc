@@ -7,10 +7,20 @@ from tkinter import *
 class Aplicacion:
     def __init__(self):
         self.ventana_principal = tk.Tk()
-        self.ventana_principal.title("Menu principal")
+        #Configuración de la ventana
         self.configurar_ventana()
-        self.lblnombrev2=tk.Label(self.ventana_principal,text="Ventana")
-        self.lblnombrev2.grid(row=0,column=0)
+        #Widgets de la ventana
+        self.decorar_ventana_principal()
+        #Inicialización de la ventana principal
+        self.ventana_principal.mainloop()
+
+    def configurar_ventana(self):
+        self.ventana_principal.state('zoomed') #Inicializa la ventana maximizada
+        self.ventana_principal.title("Menu principal") #Aplica un titulo a la ventana
+        self.ventana_principal.resizable(0,0)  #Evita que se pueda redimensionar la ventana
+        self.ventana_principal.iconbitmap("Imagenes/icono-twice.ico")#Icono de la ventana
+
+    def menu_ventana_principal(self):
         self.menuppal = tk.Menu(self.ventana_principal)
         self.opciones = tk.Menu(self.menuppal)
         self.opciones.add_command(label="Ventana 1", command = self.ventana_uno)
@@ -18,29 +28,29 @@ class Aplicacion:
         self.opciones.add_command(label="Ventana 3", command = self.ventana_tres)
         self.menuppal.add_cascade(label="Opciones", menu=self.opciones)
         self.ventana_principal.config(menu=self.menuppal)
-        self.ventana_principal.mainloop()
 
+    def decorar_ventana_principal(self):
+        #Imagen de fondo en la ventana_principal
+        self.imagen_inicio = tk.PhotoImage(file="Imagenes/logo.png")  
+        self.label_python=tk.Label(self.ventana_principal,image=self.imagen_inicio)
+        self.label_python.grid(row=1,column=6,padx=1.4)
+        #Menú de la ventana principal
+        self.menu_ventana_principal()
+
+    #Inicializador de ventanas
     def ventana_uno(self):
         root = tk.Tk()
-        control = Ventana_Principal_Controller(root)
+        Ventana_Principal_Controller(root)
         root.mainloop()
+
     def ventana_dos(self):
         root2 = tk.Tk()
-        control_ventana_dos = Ventana_Dos_Controller(root2)
+        Ventana_Dos_Controller(root2)
         root2.mainloop()
+
     def ventana_tres(self):
         root3 = tk.Tk()
-        control_ventana_tres = Ventana_Tres_Controller(root3)
+        Ventana_Tres_Controller(root3)
         root3.mainloop()
 
-    def configurar_ventana(self):
-        wventana = 1080
-        hventana = 600
 
-        wtotal = self.ventana_principal.winfo_screenwidth()
-        htotal = self.ventana_principal.winfo_screenheight()
-        pwidth = round(wtotal/2-wventana/2)
-        pheight = round(htotal/2-hventana/2)
-
-        self.ventana_principal.geometry(str(wventana)+"x"+str(hventana)+"+"+str(pwidth)+"+"+str(pheight))
-        self.ventana_principal.resizable(0, 0)
