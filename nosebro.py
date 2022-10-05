@@ -1,4 +1,6 @@
 import nlpcloud
+import os
+import openai
 
 token = "0c763b98f814c4649754c8c6e50425f99969aa72"
 client = nlpcloud.Client("python-langdetect", token)
@@ -334,3 +336,16 @@ class App:
 if __name__ == '__main__':
     ap = App()
 """  
+
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+response = openai.Completion.create(
+  model="text-davinci-002",
+  prompt="Translate this into 1. French, 2. Spanish and 3. Japanese:\n\nWhat rooms do you have available?\n\n1. Quels sont les chambres que vous avez disponibles?\n2. ¿Qué habitaciones tienen disponibles?\n3. あなたはどんな部屋を持っていますか？",
+  temperature=0.3,
+  max_tokens=100,
+  top_p=1,
+  frequency_penalty=0,
+  presence_penalty=0
+)
