@@ -7,7 +7,6 @@ class Ventana_Uno_View(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
         self.parent = parent
-
         self.configurar_ventana()
         self.decorar_ventana_uno()
 
@@ -16,21 +15,16 @@ class Ventana_Uno_View(tk.Frame):
         self.parent.iconbitmap("Imagenes/icono-twice.ico")#Icono de la ventana
         self.parent.title("Traductor y detecciòn de lenguaje") #Aplica un titulo a la ventana
         self.parent.resizable(0,0)
-        
         self.dimensiones_ventana()
 
     def dimensiones_ventana(self):
-    
         wventana = 610
         hventana = 350
-
         wtotal = self.parent.winfo_screenwidth()
         htotal = self.parent.winfo_screenheight()
         pwidth = round(wtotal/2-wventana/2+500)
         pheight = round(htotal/2-hventana/2)
-
         self.parent.geometry(str(wventana)+"x"+str(hventana)+"+"+str(pwidth)+"+"+str(pheight))
-        self.parent.resizable(0, 0)
 
     def decorar_ventana_uno(self):
         #Simple Label que indica que es un campo para escribir texto (que se va a traducir)

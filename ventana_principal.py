@@ -6,7 +6,7 @@ from Controladores.ventana_dos_Controlador import *
 from Controladores.ventana_tres_Controlador import *
 from tkinter import *
 
-class Aplicacion:
+class Ventana_Principal:
     def __init__(self):
         self.ventana_principal = tk.Tk()
         #Configuración de la ventana

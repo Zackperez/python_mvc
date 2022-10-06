@@ -7,15 +7,15 @@ class Ventana_dos_View(tk.Frame):
 
     def __init__(self, parent):
         super().__init__(parent)
-
         self.parent = parent
         self.configurar_ventana()
         self.decorar_ventana()
+
+
+    def configurar_ventana(self):
         self.parent.config(bg="white")
         self.parent.iconbitmap("Imagenes/icono-twice.ico")#Icono de la ventana
         self.parent.title("Analisis de sentimientos y creación de preguntas") #Aplica un titulo a la ventana
-
-    def configurar_ventana(self):
         self.dimensiones_ventana()
         self.parent.resizable(0, 0)
 
