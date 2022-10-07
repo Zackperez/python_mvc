@@ -44,7 +44,7 @@ class Ventana_Tres_Controller:
 
     def chatBot(self):
         try:
-            openai.api_key =("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")
+            openai.api_key =("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")
             humano_preguntas = []
             ia_respuestas = []
             conversation ="Fui creado por OpenAI. ¿Cómo te puedo ayudar hoy?"

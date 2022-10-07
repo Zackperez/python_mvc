@@ -1,0 +1,26 @@
+[
+   {
+      "Analizador de sentimientos": {
+         "Sentimiento a analizar:": "I'm very happy",
+         "Sentimiento analizado:": "POSITIVE"
+      }
+   },
+   {
+      "Analizador de sentimientos": {
+         "Sentimiento a analizar:": "I'm very happy",
+         "Sentimiento analizado:": "POSITIVE"
+      }
+   },
+   {
+      "Analizador de sentimientos": {
+         "Sentimiento a analizar:": "I'm very happy",
+         "Sentimiento analizado:": "POSITIVE"
+      }
+   },
+   {
+      "Generador de listas": {
+         "Lista a generar:": "A list of f1 driver",
+         "Lista generada:": "1. Lewis Hamilton\n2. Sebastian Vettel\n3. Valtteri Bottas\n4. Max Verstappen\n5. Charles Leclerc"
+      }
+   }
+]

@@ -69,7 +69,7 @@ class Ventana_Uno_Controller:
            return "eng_Latn"
     
     def detectar_idioma(self,texto): #Primer servicio
-        token = "0c763b98f814c4649754c8c6e50425f99969aa72"
+        token = "1c56cb1a8a4b5cb1079f2f2e0c89321585206468"
         client = nlpcloud.Client("python-langdetect", token)
         lang = client.langdetection(texto)
 
@@ -78,7 +78,7 @@ class Ventana_Uno_Controller:
         listafinal = listapy.items()
         idioma = list(listafinal)[0][0]
 
-        if idioma == "es":   return "spa_Latn"
+        if   idioma == "es": return "spa_Latn"
 
         elif idioma == "de": return "deu_Latn"
 
@@ -109,7 +109,7 @@ class Ventana_Uno_Controller:
             print("No puedes traducir al mismo idioma")
 
         else:
-            client = nlpcloud.Client("nllb-200-3-3b","669bf6a268ab8c4d72b919570e8357e55c80a06b",gpu=False)
+            client = nlpcloud.Client("python-langdetect","1c56cb1a8a4b5cb1079f2f2e0c89321585206468",gpu=False)
             texto_traducido = client.translation(texto_escrito, source = idioma_escrito_detectado, target = idioma_a_traducir_seleccionado)
             self.view.lblres['text'] = self.traducir_texto()
             self.crear_traduccion_json("Traducción de textos:", "Texto a traducir", texto_escrito, "Texto traducido:", texto_traducido)

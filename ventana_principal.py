@@ -19,7 +19,7 @@ class Ventana_Principal:
 
 
     def configurar_ventana(self):
-        self.ventana_principal.config(bg="white")
+        self.ventana_principal.config(bg="#0D1216")
         self.ventana_principal.state('zoomed') #Inicializa la ventana maximizada
         self.ventana_principal.title("Menu principal") #Aplica un titulo a la ventana
         self.ventana_principal.resizable(0,0)  #Evita que se pueda redimensionar la ventana
@@ -36,13 +36,17 @@ class Ventana_Principal:
 
     def decorar_ventana_principal(self):
         #Simple label que indica la descripcion del programa
-        self.lblTextoTraducido = tk.Label(self.ventana_principal, text="Descripción del programa: ",bg="white",font=('Roboto', 15)).grid(row=3, column=0,pady=10)
-        self.lblTextoTraducido = tk.Label(self.ventana_principal, text="¡Bienvenido!, te encuentras en la ventana principal. En esta ventana encontrarás un menú de opciones en la parte superior izquierda en el que podrás acceder a tres ventanas más. En la primera ventana podrás encontrar un traductor el cuál te permitirá traducir a los siguientes idiomas: Español, Alemán, Portugués, Ruso, Coreano, Japones, e Ingles. En la segunda venta podrás encontrar un analizador de emociones, que te permite saber cual es el estado en el que te encuentras dependiendo de lo que le escribas, además de poder encontrar un generador de listas y preguntas en la misma ventana según el tema que le especifiques. En la tercera (y última ventana) encontrarás un Chatbot con el que te podrás comunicar haciendole preguntas y así recibir una respuesta por parte del bot.",bg="white",wraplength=900, justify="left",font=('Roboto', 15)).grid(row=4, column=0)
+        self.lblTituloDescripcion = tk.Label(self.ventana_principal, text="Descripción del programa: ")
+        self.lblTituloDescripcion.config(bg="#0D1216", fg = "#FFBD59", font=('Roboto', '25', 'bold'))
+        self.lblTituloDescripcion.grid(row=3, column=0,pady=30)
+        self.lblDescripcion = tk.Label(self.ventana_principal, text="¡Bienvenido!, te encuentras en la ventana principal. \n\nEn esta ventana encontrarás un menú de opciones en la parte superior izquierda en el que podrás acceder a tres ventanas más. \n\n1. En la primera ventana podrás encontrar un traductor el cuál te permitirá traducir a los siguientes idiomas: Español, Alemán, Portugués, Ruso, Coreano, Japones, e Inglés.\n\n2. En la segunda venta podrás encontrar un analizador de emociones, que te permite saber cual es el estado en el que te encuentras dependiendo de lo que le escribas, además de poder encontrar un generador de listas y preguntas en la misma ventana según el tema que le especifiques.\n\n3. En la tercera (y última ventana) encontrarás un Chatbot con el que te podrás comunicar haciendole preguntas y así recibir una respuesta por parte del bot.")
+        self.lblDescripcion.config(bg="#0D1216", fg = "white", font=('Roboto Mono Regular', '17', 'bold'),wraplength=900, justify="left")
+        self.lblDescripcion.grid(row=4, column=0, pady=20, padx = 20)
 
         #Imagen de fondo en la ventana_principal
         self.imagen_inicio = tk.PhotoImage(file="Imagenes/toad.png")  
         self.label_python=tk.Label(self.ventana_principal,image=self.imagen_inicio)
-        self.label_python.grid(row=5,column=0,padx=0.5,pady=1)
+        self.label_python.grid(row=4,column=1, padx=30)
         #Menú de la ventana principal
         self.menu_ventana_principal()
 

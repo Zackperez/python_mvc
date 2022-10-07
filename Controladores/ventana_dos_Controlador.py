@@ -16,7 +16,7 @@ class Ventana_Dos_Controller:
         self.view.btnspin.config(command=self.preguntas)
 
     def analizar_sentimiento(self):
-        client = nlpcloud.Client("distilbert-base-uncased-finetuned-sst-2-english", "567553a69d8d37b78370ea3ffa460d78c68d142d", gpu=False, lang="en")
+        client = nlpcloud.Client("distilbert-base-uncased-finetuned-sst-2-english", "1c56cb1a8a4b5cb1079f2f2e0c89321585206468", gpu=False, lang="en")
         #Para analizar el sentimiento, se necesita que el ususario escriba en un campo y así usar client.sentiment()
         sentimiento_analizar = self.view.txtEntrada.get()
         res = client.sentiment(sentimiento_analizar)
@@ -30,7 +30,7 @@ class Ventana_Dos_Controller:
         self.view.txtEntrada.delete(0,END)
 
     def preguntas(self):
-        openai.api_key = ("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")
+        openai.api_key = ("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")
         #Se almacena el valor actual del SPINBOX
         cantidad_spinbox= self.view.spin_box.get()
 

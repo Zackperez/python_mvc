@@ -44,7 +44,7 @@ class Ventana_Tres_View(tk.Frame):
         #Calcula el tamaño de la resolucion de la pantalla
         wtotal = self.parent.winfo_screenwidth()
         htotal = self.parent.winfo_screenheight()
-        pwidth = round(wtotal/2-wventana/2+250)
+        pwidth = round(wtotal/2-wventana/2)
         pheight = round(htotal/2-hventana/2)
 
         self.parent.geometry(str(wventana)+"x"+str(hventana)+"+"+str(pwidth)+"+"+str(pheight))
