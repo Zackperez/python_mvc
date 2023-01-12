@@ -30,7 +30,7 @@ class Ventana_Dos_Controller:
         self.view.txtEntrada.delete(0,END)
 
     def preguntas(self):
-        openai.api_key = ("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")
+        openai.api_key = ("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")
         #Se almacena el valor actual del SPINBOX
         cantidad_spinbox= self.view.spin_box.get()
 

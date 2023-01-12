@@ -16,24 +16,26 @@ class Ventana_Tres_View(tk.Frame):
     def configurar_ventana(self):
         self.parent.iconbitmap("Imagenes/icono-twice.ico")#Icono de la ventana
         self.parent.title("Chatbot con openAI") #Aplica un titulo a la ventana
-        self.parent.config(bg="white")
+        self.parent.config(bg="#0D1216")
         self.parent.resizable(0,0)
         self.dimensiones_ventana()
 
     def decorar_ventana(self):
 
-        self.lblTitulo_servicio=tk.Label(self.parent,text="CHATBOT con OpenAI",font=('Roboto', 20),bg="white")
-        self.lblTitulo_servicio.grid(row=0,column=0,padx=0,pady=5,ipadx=0,ipady=10)
+        self.lblTitulo_servicio=tk.Label(self.parent, text = "CHATBOT con OpenAI")
+        self.lblTitulo_servicio.config(bg = "#0D1216", fg = "#FFBD59", font = ('Roboto', '30', 'bold'))
+        self.lblTitulo_servicio.grid(row = 0, column = 0, padx = 0, pady = 5, ipadx = 0, ipady = 10)
 
         myscroll = Scrollbar(self.parent)
-        self.historial_de_conversacion = Listbox(self.parent, yscrollcommand = myscroll.set, borderwidth=1, relief="solid")
-        self.historial_de_conversacion.grid(row=1,column=0,padx=10,pady=5,ipadx=325,ipady=140)
+        self.historial_de_conversacion = Listbox(self.parent, yscrollcommand = myscroll.set, borderwidth = 1, relief = "solid")
+        self.historial_de_conversacion.grid(row = 1 ,column = 0, padx = 10, pady = 5, ipadx = 325, ipady = 120)
 
-        self.lblTexto_usuario=tk.Label(self.parent,text="Escribe acá",font=('Roboto', 10),bg="white")
-        self.lblTexto_usuario.grid(row=2,column=0,ipady=5)
+        self.lblTexto_usuario = tk.Label(self.parent,text="Escribe acá")
+        self.lblTexto_usuario.config(bg = "#0D1216", fg = "#FFBD59", font = ('Roboto', '12', 'bold'))
+        self.lblTexto_usuario.grid(row = 2,column = 0,ipady = 5)
 
         self.txtEntrada_texto_usuario = tk.Entry(self.parent, borderwidth=1, relief="solid")
-        self.txtEntrada_texto_usuario.grid(row=3,column=0,padx=10,pady=5,ipadx=80,ipady=2)
+        self.txtEntrada_texto_usuario.grid(row = 3,column = 0,padx = 10, pady = 5, ipadx = 80, ipady = 2)
 
         self.botones_widget()
 
@@ -51,4 +53,4 @@ class Ventana_Tres_View(tk.Frame):
 
     def botones_widget(self):      #Funcion que va dentro de configurar_ventana()
         self.btnEnviar_texto_hacia_IA = tk.Button(self.parent,text="Enviar", width=10,height=1)
-        self.btnEnviar_texto_hacia_IA.grid(row=4, column=0,pady=5)
+        self.btnEnviar_texto_hacia_IA.grid(row = 4, column = 0,pady = 5)

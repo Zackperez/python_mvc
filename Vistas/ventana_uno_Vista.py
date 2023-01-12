@@ -42,15 +42,15 @@ class Ventana_Uno_View(tk.Frame):
         self.lblFrameTexto_traducir.config(bg = "#0D1216", fg = "#FFBD59", font = ('Roboto', '30', 'bold'))
         self.lblFrameTexto_traducir.grid(row = 1, column = 0, padx = 40, pady = 10)
         
-        
         #Campo donde se escribe el texto que se va a traducir posteriormente
-        self.txtTraducir = tk.Entry(self.lblFrameTexto_traducir, validate="key", borderwidth=1, relief="solid")
+        self.txtTraducir = tk.Entry(self.lblFrameTexto_traducir)
+        self.txtTraducir.config(borderwidth = 1, relief = "solid")
         self.txtTraducir.grid(row = 0,column = 0, ipadx = 140, padx = 10)
 
         self.comboBox_idiomas()
     
         #Label que recibe el texto traducido
-        self.lblFrameTexto_traducido = tk.LabelFrame(self.parent, text = "Texto traducido", pady=30)
+        self.lblFrameTexto_traducido = tk.LabelFrame(self.parent, text = "Texto traducido", pady = 30)
         self.lblFrameTexto_traducido.config(bg = "#0D1216", fg = "#FFBD59", font = ('Roboto', '30', 'bold'))
         self.lblFrameTexto_traducido.grid(row = 2, column = 0, padx = 40, pady = 10)
         
@@ -62,7 +62,7 @@ class Ventana_Uno_View(tk.Frame):
     def comboBox_idiomas(self):
         self.opcion = tk.StringVar()
         idiomas = ("Español", "Aleman", "Inglés", "Portugués", "Ruso", "Coreano", "Japones")
-        self.combo_idiomas = ttk.Combobox(self.lblFrameTexto_traducir,width=10,textvariable=self.opcion,values=idiomas)
+        self.combo_idiomas = ttk.Combobox(self.lblFrameTexto_traducir, width = 10, textvariable = self.opcion, values = idiomas)
         self.combo_idiomas.current(0)
         self.combo_idiomas.grid(row = 0, column = 1, pady = 10)
 
@@ -70,5 +70,5 @@ class Ventana_Uno_View(tk.Frame):
         self.btnGuardar_texto_escrito = tk.Button(self.lblFrameTexto_traducir,text = "Guardar", width = 10, height = 1)
         self.btnGuardar_texto_escrito.grid(row = 1, column = 1,padx = 10, pady = 0)
 
-        self.btnMostrar_traduccion = tk.Button(self.lblFrameTexto_traducido,text = "Mostrar", width = 10,height = 1)
+        self.btnMostrar_traduccion = tk.Button(self.lblFrameTexto_traducido,text = "Mostrar", width = 10, height = 1)
         self.btnMostrar_traduccion.grid(row = 0, column = 1, padx = 10, pady = 0)
